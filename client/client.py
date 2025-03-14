@@ -1,9 +1,13 @@
 import socket
 import ssl
+import os
 
-def echo_client(server_host='127.0.0.1', server_port=8443, certfile='./certs/server.crt'):
+CERTS_DIR = "../certs"
+
+def echo_client(server_host='127.0.0.1', server_port=8443, certfile='server.crt'):
     context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
-    context.load_verify_locations(certfile)
+    context.load_verify_locations(os.path.join(CERTS_DIR, certfile))
+    context.check_hostname = False
     
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
         secure_socket = context.wrap_socket(client_socket, server_hostname=server_host)
