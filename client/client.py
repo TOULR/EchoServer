@@ -1,20 +1,18 @@
 import socket
 
-def echo_client(server_host='127.0.0.1', server_port=1234):
+def echo_client(server_host='127.0.0.1', server_port=8443):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
         client_socket.connect((server_host, server_port))
-        print("Connected to echo server on {}:{}".format(server_host, server_port))
+        print("Connected to server")
         try:
             while True:
                 message = input("Enter message (or type 'exit' to quit): ")
                 if message.lower() == 'exit':
-                    print("Exiting.")
+                    print("Exiting")
                     break
-                # Send the message to the server
                 client_socket.sendall(message.encode())
-                # Wait for the echoed response from the server
                 data = client_socket.recv(1024)
-                print("Echoed from server:", data.decode())
+                print(f"Received from server: {data.decode()}")
         except Exception as e:
             print("Error:", e)
         finally:
