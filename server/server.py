@@ -20,7 +20,7 @@ def handle_client(client_socket, client_address):
     finally:
         client_socket.close()
 
-def start_server(host='127.0.0.1', port=8443, certfile='server.crt', keyfile='server.key'):
+def start_server(host='0.0.0.0', port=8443, certfile='server.crt', keyfile='server.key'):
     try:
         context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
         context.load_cert_chain(certfile=os.path.join(CERTS_DIR, certfile), keyfile=os.path.join(CERTS_DIR, keyfile), password=lambda: "schrank23")
