@@ -37,22 +37,11 @@ def start_server(host='0.0.0.0', port=8443, certfile='server.crt', keyfile='serv
                 client_thread.daemon = True
                 client_thread.start()
     except ssl.SSLError as e:
-
         print(f"SSL error: {e}")
-
     except socket.error as e:
-
         print(f"Socket error: {e}")
-
     except Exception as e:
-
         print(f"An unexpected error occurred: {e}")
-
-    finally:
-
-        if 'sock' in locals():
-
-            sock.close()
 
 if __name__ == "__main__":
     start_server()
