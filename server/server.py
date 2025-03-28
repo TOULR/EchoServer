@@ -7,6 +7,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)  # Use BCM numbering
 
 def setPin(pin, value):
+    print(f"Setting pin {pin} to {value}")
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, GPIO.HIGH if value else GPIO.LOW)
 
