@@ -14,25 +14,25 @@ CERTS_DIR = "../certs"
 
 def handle_client(client_socket, client_address, server_socket):
     print(f"Accepted SSL connection from {client_address}")
-    try:
-        while True:
-            data = client_socket.recv(1024)
-            data = data.decode('utf-8')
-            if not data:
-                print(f"Connection closed by {client_address}")
-                break
-            if data.startswith("set"):
-                args = data.split(" ")
-                pin = int(args[1])
-                value = bool(args[2])
-                setPin(pin, value)
-            print(f"Received from {client_address}: {data}")
-            client_socket.sendall(data)
-    except Exception as e:
-        print(f"Exception with {client_address}: {e}")
-        server_socket.close()
-    finally:
-        client_socket.close()
+    #try:
+    while True:
+        data = client_socket.recv(1024)
+        data = data.decode('utf-8')
+        if not data:
+            print(f"Connection closed by {client_address}")
+            break
+        if data.startswith("set"):
+            args = data.split(" ")
+            pin = int(args[1])
+            value = bool(args[2])
+            setPin(pin, value)
+        print(f"Received from {client_address}: {data}")
+        client_socket.sendall(data)
+    #except Exception as e:
+    #    print(f"Exception with {client_address}: {e}")
+    #    server_socket.close()
+    #finally:
+    #    client_socket.close()
 
 def start_server(host='0.0.0.0', port=8443, certfile='server.crt', keyfile='server.key'):
     server_socket = None
