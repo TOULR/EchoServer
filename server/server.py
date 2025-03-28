@@ -8,10 +8,10 @@ def setPin(pin, value):
     GPIO.setmode(GPIO.BCM)  # Use BCM numbering
     GPIO.setup(pin, GPIO.OUT)
     if value == 0:
-        print(f"Setting pin {pin} to HIGH")
+        print(f"Setting pin {pin} to LOW")
         GPIO.output(pin, GPIO.LOW)
     else:
-        print(f"Setting pin {pin} to LOW")
+        print(f"Setting pin {pin} to HIGH")
         GPIO.output(pin, GPIO.HIGH)
     GPIO.cleanup()
 
