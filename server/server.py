@@ -33,6 +33,7 @@ def handle_client(client_socket, client_address):
         client_socket.close()
 
 def start_server(host='0.0.0.0', port=8443, certfile='server.crt', keyfile='server.key'):
+    server_socket = None
     try:
         context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
         context.load_cert_chain(certfile=os.path.join(CERTS_DIR, certfile), keyfile=os.path.join(CERTS_DIR, keyfile), password=lambda: "schrank23")
@@ -54,6 +55,8 @@ def start_server(host='0.0.0.0', port=8443, certfile='server.crt', keyfile='serv
         print(f"Socket error: {e}")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
+    finally:
+        server_socket.close()
 
 if __name__ == "__main__":
     start_server()
