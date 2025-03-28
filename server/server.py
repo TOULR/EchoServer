@@ -62,4 +62,7 @@ def start_server(host='0.0.0.0', port=8443, certfile='server.crt', keyfile='serv
         server_socket.close()
 
 if __name__ == "__main__":
-    start_server()
+    try:
+        start_server()
+    except Exception:
+        GPIO.cleanup()
