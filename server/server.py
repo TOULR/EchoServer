@@ -22,7 +22,7 @@ def handle_client(client_socket, client_address):
                 break
             if data.startswith("set"):
                 args = data.split(" ")
-                pin = args[1]
+                pin = int(args[1])
                 value = bool(args[2])
                 setPin(pin, value)
             print(f"Received from {client_address}: {data.decode()}")
