@@ -18,7 +18,6 @@ def handle_client(client_socket, client_address, server_socket):
         while True:
             data = client_socket.recv(1024)
             data = data.decode('utf-8')
-            print(f"{data} ---> {type(data)}")
             if not data:
                 print(f"Connection closed by {client_address}")
                 break
@@ -27,7 +26,7 @@ def handle_client(client_socket, client_address, server_socket):
                 pin = int(args[1])
                 value = bool(args[2])
                 setPin(pin, value)
-            print(f"Received from {client_address}: {data.decode()}")
+            print(f"Received from {client_address}: {data}")
             client_socket.sendall(data)
     except Exception as e:
         print(f"Exception with {client_address}: {e}")
