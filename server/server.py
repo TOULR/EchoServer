@@ -21,7 +21,7 @@ def handle_client(client_socket, client_address):
                 print(f"Connection closed by {client_address}")
                 break
             if data.startswith("set"):
-                args = data.split(" ")
+                args = data.decode().split(" ")
                 pin = int(args[1])
                 value = bool(args[2])
                 setPin(pin, value)
