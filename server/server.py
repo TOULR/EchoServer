@@ -4,12 +4,12 @@ import ssl
 import threading
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BCM)  # Use BCM numbering
-
 def setPin(pin, value):
+    GPIO.setmode(GPIO.BCM)  # Use BCM numbering
     print(f"Setting pin {pin} to {value}")
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, GPIO.HIGH if value else GPIO.LOW)
+    GPIO.cleanup()
 
 CERTS_DIR = "../certs"
 
@@ -62,7 +62,4 @@ def start_server(host='0.0.0.0', port=8443, certfile='server.crt', keyfile='serv
         server_socket.close()
 
 if __name__ == "__main__":
-    try:
-        start_server()
-    except Exception:
-        GPIO.cleanup()
+    start_server()
