@@ -2,12 +2,12 @@ import os
 import socket
 import ssl
 import threading
-import RPi.GPIO
+import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)  # Use BCM numbering
-GPIO.setup(pin, GPIO.OUT)
 
 def setPin(pin, value):
+    GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, GPIO.HIGH if value else GPIO.LOW)
 
 CERTS_DIR = "../certs"
