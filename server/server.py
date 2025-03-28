@@ -12,7 +12,7 @@ def setPin(pin, value):
 
 CERTS_DIR = "../certs"
 
-def handle_client(client_socket, client_address):
+def handle_client(client_socket, client_address, server_socket):
     print(f"Accepted SSL connection from {client_address}")
     try:
         while True:
@@ -29,6 +29,7 @@ def handle_client(client_socket, client_address):
             client_socket.sendall(data)
     except Exception as e:
         print(f"Exception with {client_address}: {e}")
+        server_socket.close()
     finally:
         client_socket.close()
 
@@ -46,7 +47,7 @@ def start_server(host='0.0.0.0', port=8443, certfile='server.crt', keyfile='serv
             while True:
                 client_socket, client_address = server_socket.accept()
                 secure_socket = context.wrap_socket(client_socket, server_side=True)
-                client_thread = threading.Thread(target=handle_client, args=(secure_socket, client_address))
+                client_thread = threading.Thread(target=handle_client, args=(secure_socket, client_address, server_socket))
                 client_thread.daemon = True
                 client_thread.start()
     except ssl.SSLError as e:
