@@ -2,6 +2,13 @@ import os
 import socket
 import ssl
 import threading
+import RPi.GPIO
+
+GPIO.setmode(GPIO.BCM)  # Use BCM numbering
+GPIO.setup(pin, GPIO.OUT)
+
+def setPin(pin, value):
+    GPIO.output(pin, GPIO.HIGH if value else GPIO.LOW)
 
 CERTS_DIR = "../certs"
 
@@ -13,6 +20,11 @@ def handle_client(client_socket, client_address):
             if not data:
                 print(f"Connection closed by {client_address}")
                 break
+            if data.startswith("set"):
+                args = data.split(" ")
+                pin = args[1]
+                value = bool(args[2])
+                setPin(pin, value)
             print(f"Received from {client_address}: {data.decode()}")
             client_socket.sendall(data)
     except Exception as e:
