@@ -25,7 +25,7 @@ def handle_client(client_socket, client_address, server_socket):
             if data.startswith("set"):
                 args = data.split(" ")
                 pin = int(args[1])
-                value = bool(args[2])
+                value = int(args[2])
                 setPin(pin, value)
             print(f"Received from {client_address}: {data}")
             client_socket.sendall(data.encode('utf-8'))
