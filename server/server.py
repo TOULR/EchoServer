@@ -17,6 +17,7 @@ def handle_client(client_socket, client_address, server_socket):
     try:
         while True:
             data = client_socket.recv(1024)
+            data = data.decode('utf-8')
             print(f"{data} ---> {type(data)}")
             if not data:
                 print(f"Connection closed by {client_address}")
