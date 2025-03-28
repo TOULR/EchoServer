@@ -29,7 +29,7 @@ def handle_client(client_socket, client_address, server_socket):
             print(f"Received from {client_address}: {data}")
             client_socket.sendall(data)
     except Exception as e:
-        print(f"Exception with {client_address}: {e.with_traceback()}")
+        print(f"Exception with {client_address}: {e.__traceback__}")
         server_socket.close()
     finally:
         client_socket.close()
