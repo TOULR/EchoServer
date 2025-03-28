@@ -8,7 +8,10 @@ def setPin(pin, value):
     GPIO.setmode(GPIO.BCM)  # Use BCM numbering
     print(f"Setting pin {pin} to {value}")
     GPIO.setup(pin, GPIO.OUT)
-    GPIO.output(pin, GPIO.HIGH if value else GPIO.LOW)
+    if value == 0:
+        GPIO.output(pin, GPIO.LOW)
+    else:
+        GPIO.output(pin, GPIO.HIGH)
     GPIO.cleanup()
 
 CERTS_DIR = "../certs"
