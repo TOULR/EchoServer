@@ -4,8 +4,9 @@ import ssl
 import threading
 import RPi.GPIO as GPIO
 
+GPIO.setmode(GPIO.BCM)
+
 def setPin(pin, value):
-    GPIO.setmode(GPIO.BCM)  # Use BCM numbering
     GPIO.setup(pin, GPIO.OUT)
     if value == 0:
         print(f"Setting pin {pin} to LOW")
@@ -13,7 +14,6 @@ def setPin(pin, value):
     else:
         print(f"Setting pin {pin} to HIGH")
         GPIO.output(pin, GPIO.HIGH)
-    GPIO.cleanup()
 
 CERTS_DIR = "../certs"
 
@@ -65,5 +65,8 @@ def start_server(host='0.0.0.0', port=8443, certfile='server.crt', keyfile='serv
     finally:
         server_socket.close()
 
-if __name__ == "__main__":
-    start_server()
+try:
+    if __name__ == "__main__":
+        start_server()
+except KeyboardInterrupt:
+    GPIO.cleanup()
