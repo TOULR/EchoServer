@@ -16,7 +16,8 @@ def handle_client(client_socket, client_address, server_socket):
     print(f"Accepted SSL connection from {client_address}")
     try:
         while True:
-            data = client_socket.recv(1024).decode()
+            data = client_socket.recv(1024)
+            print(f"{data} ---> {type(data)}")
             if not data:
                 print(f"Connection closed by {client_address}")
                 break
