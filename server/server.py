@@ -16,12 +16,12 @@ def handle_client(client_socket, client_address):
     print(f"Accepted SSL connection from {client_address}")
     try:
         while True:
-            data = client_socket.recv(1024)
+            data = client_socket.recv(1024).decode()
             if not data:
                 print(f"Connection closed by {client_address}")
                 break
             if data.startswith("set"):
-                args = data.decode().split(" ")
+                args = data.split(" ")
                 pin = int(args[1])
                 value = bool(args[2])
                 setPin(pin, value)
